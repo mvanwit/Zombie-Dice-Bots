@@ -214,14 +214,12 @@ class ProZombie:
         numFootsteps = 0
         cup = {'green': 6, 'yellow': 4, 'red': 3}
         diceFromCup = 0
-        print(gameState['ORDER'])
         order = gameState['ORDER'].index(self.name)
-        playerBefore = []
+        playersAfter = []
+        endGame = False
 
-        for i in range(order):
-            playerBefore.append(gameState['ORDER'][i])
-
-
+        for i in range(order+1, len(gameState['ORDER'])):
+            playersAfter.append(gameState['ORDER'][i]) #List of zombies playing after prozombie
 
         while diceRollResults is not None:
             #DEBUGprint("ProZombie Turn")
@@ -239,13 +237,17 @@ class ProZombie:
                     cup[color] -= diceRollResults['rolls'][i][0].count(color) #count dice left in the cup per color
                 
             diceFromCup = 3 - numFootsteps # Count number of dice that we will need to pick in the cup if we continue
+
+            for after in playersAfter:
+                if gameState['SCORES'][after] >= 10:
+                    endGame = True
                 
             #DEBUGprint(diceRollResults,'SG', shotguns,'B', brains,'FS', footsteps,'numFS', numFootsteps,'cup', cup,'diceFromCup', diceFromCup, sep="\n") #DEBUG
             #DEBUGinput("Please press the Enter key to proceed") #DEBUG
 
             
             # Reroll when 0 shotgun
-            if shotguns == 0:
+            if shotguns == 0 or endGame:
                 diceRollResults = zombiedice.roll() # roll again
             
             # Rules when 1 shotgun
@@ -289,5 +291,5 @@ zombies = (
 )
 
 # Uncomment one of the following lines to run in CLI or Web GUI mode:
-zombiedice.runTournament(zombies=zombies, numGames=1)
+zombiedice.runTournament(zombies=zombies, numGames=1000)
 #zombiedice.runWebGui(zombies=zombies, numGames=1000)
