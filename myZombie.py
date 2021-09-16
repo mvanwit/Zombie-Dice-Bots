@@ -24,6 +24,8 @@ class TwoBrainsZombie:
         #Zombie code:
         brains = 0
         while diceRollResults is not None:
+            #DEBUGprint("TwoBrainsZombie Turn")
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             # Count brains from the rolls
             brains += diceRollResults['brains']
 
@@ -57,6 +59,8 @@ class TwoShotgunsZombie:
         #Zombie code:
         shotguns = 0
         while diceRollResults is not None:
+            #DEBUGprint("TwoShotgunsZombie Turn")
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             # Count shotguns from the rolls
             shotguns += diceRollResults['shotgun']
 
@@ -91,6 +95,8 @@ class RandomZombie:
         #Zombie code:
 
         while diceRollResults is not None:
+            #DEBUGprint("RandomZombie Turn")
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             # Random decision
             decision = random.randint(0, 1)
 
@@ -129,6 +135,8 @@ class OnetoFourZombie:
         shotguns = 0
 
         while diceRollResults is not None:
+            #DEBUGprint("OnetoFourZombie Turn")
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             # Count shotguns from the rolls
             shotguns += diceRollResults['shotgun']
             
@@ -165,6 +173,8 @@ class MoreShotgunsThanBrains:
         #Zombie code:        
 
         while diceRollResults is not None:
+            #DEBUGprint("MoreShotgunsThanBrainsZombie Turn")
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             # Count shotguns and brains from the rolls
             shotguns = diceRollResults['shotgun']
             brains = diceRollResults['brains']
@@ -186,7 +196,7 @@ class ProZombie:
     def turn(self, gameState):
         # gameState is a dict with info about the current state of the game.
         # You can choose to ignore it in your code.
-
+        self.gameState = gameState
         diceRollResults = zombiedice.roll() # first roll
         # roll() returns a dictionary with keys 'brains', 'shotgun', and
         # 'footsteps' with how many rolls of each type there were.
@@ -207,6 +217,11 @@ class ProZombie:
         
 
         while diceRollResults is not None:
+            #DEBUGprint("ProZombie Turn")
+            #DEBUGprint(gameState['ORDER'])
+            #DEBUGprint(gameState['SCORES'])
+            
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
             numCup = 0
             # Count shotguns, brains, footsteps from the roll and dice lefts in the cup
             shotguns += diceRollResults['shotgun']
@@ -220,8 +235,8 @@ class ProZombie:
                 
             diceFromCup = 3 - numFootsteps # Count number of dice that we will need to pick in the cup if we continue
                 
-            #print(diceRollResults,'SG', shotguns,'B', brains,'FS', footsteps,'numFS', numFootsteps,'cup', cup,'numCup', numCup,'diceFromCup', diceFromCup, sep="\n") #DEBUG
-            #input("Please press the Enter key to proceed") #DEBUG
+            #DEBUGprint(diceRollResults,'SG', shotguns,'B', brains,'FS', footsteps,'numFS', numFootsteps,'cup', cup,'numCup', numCup,'diceFromCup', diceFromCup, sep="\n") #DEBUG
+            #DEBUGinput("Please press the Enter key to proceed") #DEBUG
 
             
             # Reroll when 0 shotgun
@@ -269,5 +284,5 @@ zombies = (
 )
 
 # Uncomment one of the following lines to run in CLI or Web GUI mode:
-#zombiedice.runTournament(zombies=zombies, numGames=1000)
-zombiedice.runWebGui(zombies=zombies, numGames=1000)
+zombiedice.runTournament(zombies=zombies, numGames=1)
+#zombiedice.runWebGui(zombies=zombies, numGames=1000)
