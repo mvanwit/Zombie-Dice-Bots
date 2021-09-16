@@ -214,7 +214,14 @@ class ProZombie:
         numFootsteps = 0
         cup = {'green': 6, 'yellow': 4, 'red': 3}
         diceFromCup = 0
-        
+        print(gameState['ORDER'])
+        order = gameState['ORDER'].index(self.name)
+        playerBefore = []
+
+        for i in range(order):
+            playerBefore.append(gameState['ORDER'][i])
+
+
 
         while diceRollResults is not None:
             #DEBUGprint("ProZombie Turn")
@@ -222,7 +229,6 @@ class ProZombie:
             #DEBUGprint(gameState['SCORES'])
             
             #DEBUGinput("Please press the Enter key to proceed") #DEBUG
-            numCup = 0
             # Count shotguns, brains, footsteps from the roll and dice lefts in the cup
             shotguns += diceRollResults['shotgun']
             brains += diceRollResults['brains']
@@ -231,11 +237,10 @@ class ProZombie:
                 numFootsteps += footsteps[color]
                 for i in range(len(diceRollResults['rolls'])):
                     cup[color] -= diceRollResults['rolls'][i][0].count(color) #count dice left in the cup per color
-                numCup += cup[color]
                 
             diceFromCup = 3 - numFootsteps # Count number of dice that we will need to pick in the cup if we continue
                 
-            #DEBUGprint(diceRollResults,'SG', shotguns,'B', brains,'FS', footsteps,'numFS', numFootsteps,'cup', cup,'numCup', numCup,'diceFromCup', diceFromCup, sep="\n") #DEBUG
+            #DEBUGprint(diceRollResults,'SG', shotguns,'B', brains,'FS', footsteps,'numFS', numFootsteps,'cup', cup,'diceFromCup', diceFromCup, sep="\n") #DEBUG
             #DEBUGinput("Please press the Enter key to proceed") #DEBUG
 
             
